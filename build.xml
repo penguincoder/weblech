@@ -1,0 +1,31 @@
+<project name="WebLech" default="dist" basedir=".">
+	<description>
+		WebLech - a tool for downloading the web
+	</description>
+	
+	<property name="src" location="weblech" />
+	<property name="build" location="build" />
+	<property name="dist" location="jars" />
+	
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${build}" />
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${build}" />
+	</target>
+	
+	<target name="dist" depends="compile">
+		<mkdir dir="${dist}" />
+		<manifest file="${dist}/MANIFEST.MF">
+			<attribute name="Main-Class" value="weblech.ui.Troll" />
+		</manifest>
+		<jar manifest="${dist}/MANIFEST.MF" jarfile="${dist}/WebLech-${DSTAMP}.jar" basedir="${build}" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+</project>
